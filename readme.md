@@ -1,73 +1,73 @@
 # MOVIES RATINGS PREDICTION USING NEURAL NETWORK AND APPICATION IN RECOMMENDATION SYSTEM
-# Dự đoán đánh giá phim sử dụng mạng nơ-ron và ứng dụng vào hệ gợi ý
 <details> 
-<summary>Mục lục</summary>
+<summary>Contents</summary>
 
-  - [1. Tổng quan](#1-tổng-quan)
-    - [Giới thiệu](#giới-thiệu)
-    - [Cấu trúc project](#cấu-trúc-project)
-  - [2. Cài đặt môi trường và thư viện cần thiết](#2-cài-đặt-môi-trường-và-thư-viện-cần-thiết)
-  - [3. Cách thực hiện demo](#3-cách-thực-hiện-demo)
-  - [4. Đánh giá](#4-đánh-giá)
-  - [5. Thành viên](#5-thành-viên)
-  - [6. Tài liệu tham khảo](#6-tài-liệu-tham-khảo)
+  - [1. Overview](#1-overview)
+    - [Introduction](#introduction)
+    - [Project structure](#neural-network-model)
+  - [2. Install the required environment and libraries](#2-install-the-required-environment-and-libraries)
+  - [3. Running Demo](#3-running-demo)
+  - [4. Evaluation](#4-evaluation)
 
 </details>
 
-## 1. Tổng quan
-### Giới thiệu
-#### Bài toán đặt ra
-Việc dự đoán đánh giá của người dùng cho sản phẩm rất quan trọng trong các hệ gợi ý hiện nay. Dựa trên đánh giá dự đoán này, hệ thống có thể đưa ra những đề xuất hiệu quả, góp phần làm cải thiện trải nghiệm người dùng.
-Có ba phương pháp chính: content-based, collaborative filtering và hybrid. Project này giới thiệu một mạng nơ-ron sử dụng kết hợp thông tin về người dùng và đặc trưng của phim để đưa ra ước lượng đánh giá phim tối ưu và ứng dụng vào hệ gợi ý.
-#### Tập dữ liệu MovieLens20M
-[MovieLens](www.movielens.umn.edu) là trang web dành cho việc nghiên cứu hệ thống gợi ý được ra mắt vào mùa thu năm 1997. Mỗi tuần có hàng trăm người truy cập MovieLens, họ đưa ra các đánh giá và nhận lại các bộ phim được gợi ý từ hệ thống. Tải bộ dữ liệu từ [MovieLens](www.movielens.umn.edu) và lưu ở thư mục `ml-20m`.
-Tập dữ liệu này gồm các file:
-1. `genome-tags.csv`: tên thẻ genome dựa theo id
-2. `movies.csv`: mô tả thông tin bộ phim, bao gồm id, tên, thể loại
-3. `tags.csv`: mô tả tag genome cho các phim
-4. `ratings.csv`: mô tả đánh giá của người dùng
-5. `genome-scores.csv`: mô tả đặc trưng phim theo thể loại
+## 1. Overview
+### Introduction
+This is my ML subject project in VinBigData Institute with my teammates (Duy Tran, Luc Nguyen, Nam Doan, Tu Phan).
+#### Topic
+Predicting user ratings for products is very important in recommender systems. Based on this predictive assessment, the system can make effective recommendations, contributing to improving user experience.
+There are three main approaches: content-based, collaborative filtering, and matching. This project introduces a neural network that uses a combination of information about users and movie features to make a quantitative assessment of the optimal level of a movie and apply it to a recommendation system.
 
-#### Mô hình mạng nơ-ron 
-Mạng nơ-ron do nhóm đề xuất có cấu trúc như sau:
-![Mô hình mạng nơ-ron đề xuất](/images/model.png)
+#### MovieLens20M Dataset
+[MovieLens](www.movielens.umn.edu) is a website devoted to researching the recommendation system that was launched in the fall of 1997. Every week hundreds of people visit MovieLens, they give reviews and get recommended movies in return from the system. Load data sets from [MovieLens](www.movielens.umn.edu) and save it in the folder `ml-20m`
+This dataset includes the following files:
+1. `genome-tags.csv`: genome tag names based on id
+2. `movies.csv`: description of movie information, including id, name, genre
+3. `tags.csv`: genome tag description for movies
+4. `ratings.csv`: user rating description
+5. `genome-scores.csv`: describe film characteristics by genre
+
+#### Neural network model
+The structure of the proposed neural network:
+![The structure of the proposed neural network](/images/model.png)
 
 
-## 2. Cài đặt môi trường và thư viện cần thiết
-Project này được cài đặt trên môi trưởng ảo được tạo bởi `miniconda`. Lựa chọn phiên bản phù hợp và cài đặt `miniconda` tại [link](https://docs.conda.io/en/latest/miniconda.html).
+## 2. Install the required environment and libraries
+This project is installed on a virtual environment created by `miniconda`. Select the appropriate version and install `miniconda` [here](https://docs.conda.io/en/latest/miniconda.html).
 
-Khởi tạo môi trường ảo sử dụng `miniconda` với phiên bản python là 3.7:
+Initialize virtual environment using `miniconda` with python 3.7:
 > `conda create --name <ml-project> python==3.7`
 
-Các thư viện sử dụng trong project này được liệt kê ở file [requirements.txt](#requirements.txt), bao gồm:
-- `keras==2.6.0, tensorflow==2.7.0, tensorflow_cpu==2.6.1`: xây dựng mô hình mạng nơ-ron
-- `numpy==1.21.2`: xử lý dữ liệu dạng ma trận số
-- `pandas==1.1.5`: xử lý dữ liệu dạng bảng
-- `prettytable==2.4.0`: tiện ích in ra kết quả dạng bảng
-- `scikit_learn==1.0.1`: xây dựng mô hình K-Nearest Neighbors
-- `surprise==0.1`: thư viện build sẵn các thuật toán rating prediction sử dụng các phương pháp như SVD, SVD++, KNN,...
+The libraries used in this project are listed in the file [requirements.txt](#requirements.txt):
+- `keras==2.6.0, tensorflow==2.7.0, tensorflow_cpu==2.6.1`
+- `numpy==1.21.2`
+- `pandas==1.1.5`
+- `prettytable==2.4.0`
+- `scikit_learn==1.0.1`
+- `surprise==0.1`
 
-Để cài đặt các thư viện trên, thực hiện lệnh sau:
+To install the above libraries, execute the following command:
 >`pip install -r requirements.txt`
 
-## 3. Cách thực hiện demo
-Tải repo này và truy cập vào thư mục chính:
-> `git clone https://github.com/duytq99/rating-prediction-neural-network.git`
+## 3. Running demo
+Clone this repo and go to the home directory:
+> `git clone https://github.com/triton99/rating-prediction-neural-network.git`
 
 > `cd rating-prediction-neural-network`
 
 > `conda activate <env-name>`
-### Dự đoán rating
-Để chạy thử nghiệm cho đề tài này, trước tiên cần tải file [checkpoint](https://drive.google.com/drive/folders/1iGjg6C3ws9QkJL_F_2otydPtpWWEhwC3?usp=sharing) lưu trọng số mô hình mạng nơ-ron và đặt vào thư mục `model_checkpoint`.
+### Predict rating
+To run a demo, first you need to download the file [checkpoint](https://drive.google.com/drive/folders/1iGjg6C3ws9QkJL_F_2otydPtpWWEhwC3?usp=sharing) 
+save model weights and put in folder `model_checkpoint`.
 
-Tiếp đến, tải dữ liệu user_genome và movie_genome tại [data](https://drive.google.com/drive/folders/13TyGwiizGIrYNhosUYfVp04J9LX30rsf?usp=sharing) và đặt vào thư mục `data`.
+Next, download the user_genome and movie_genome data here [data](https://drive.google.com/drive/folders/13TyGwiizGIrYNhosUYfVp04J9LX30rsf?usp=sharing) and put in folder `data`.
 
-Để thực hiện dự đoán đánh giá của người dùng `u` cho bộ phim `i`, thực thi file mã nguồn python `rating_predict` ở :
+To predict user rating `u` for movie `i`, execute python source file `rating_predict` :
 > `python src/rating_predict.py` 
 
-Sau đó, danh sách các users sẽ được in ra, lưu ý rằng đây chỉ là id của 100 người dùng đầu tiên, bạn có thể thử với các id người dùng khác.
+Then a list of users will be printed, note that this is only the id of the first 100 users, you can try with other user ids.
 
-Nhập vào id của người dùng và id của bộ phim muốn dự đoán điểm đánh giá. Kết quả dự đoán sẽ được in ra terminal sau một thời gian thực thi. Kết quả thu được có dạng như sau:
+Enter the id of the user and the id of the movie you want to predict the rating for. The prediction results will be printed to the terminal after some time of execution. The obtained results have the following form:
 ```
 Enter user id: 64
 Enter movie id: 1000
@@ -81,14 +81,14 @@ User genome [[0.03924 0.03645 0.11525 ... 0.03097 0.07641 0.01837]]
 Predicted rating:  3.279511
 ```
 
-### Đề xuất top K bộ phim
+### Recommend top K movies
 
-Để thực hiện đề xuất `k` bộ phim cho user có mã số `user id` bất kỳ, cần đảm bảo đã tải file checkpoint lưu vào thư mục `model_checkpoint` và file csv chứa dữ liệu genome của người dùng cũng như các bộ phim vào thư mục `data`.
+To make a `k` movie recommendation for a user with any `user id`, make sure you have downloaded the checkpoint file saved to the `model_checkpoint` folder and the csv file contains the user's genome data as well as the movies into the folder `data`.
 
-Thực thi file mã nguồn python `topk_predict.py` bằng câu lệnh sau:
+Execute the python source file `topk_predict.py` with the following command:
 > `python src/topk_predict.py`
 
-Nhập vào mã số của người dùng `user_id` và số lượng `k` bộ phim muốn đề xuất. Kết quả gợi ý được hiển thị có dạng như sau:
+Enter the user code `user_id` and the number of `k` movies you want to recommend:
 ```
 Enter user id: 20000
 Enter K: 20
@@ -118,24 +118,18 @@ Enter K: 20
 +---------------------------------------------+--------------------------+----------+------------------+--------------+
 ```
 
-## 4. Đánh giá
-- MAE: Đánh giá số tuyệt đối giữa giá trị rating dự đoán và rating thực tế.
-- RMSE: Đánh giá căn bậc hai bình phương sai số giá trị rating dự đoán và rating thực tế. Hai thống số MAE và RMSE thu được qua quá trình huấn luyện sử dụng file `notebook\compare_SVD_KNN.ipynb`.
+## 4. Evaluation
+- MAE: Evaluate the absolute value between the predicted rating and the actual rating.
+- RMSE: Evaluate the square root of the error of the predicted rating and the actual rating. 
+- Two parameters MAE and RMSE are obtained through training using file notebook\compare_SVD_KNN.ipynb`.
 
-| Mô hình  | SVD-Surprise | KNN-Surprise | Mạng nơ-ron |
-| ---------| -----------  | -----------  | ----------- |
-| MAE      | 0.6384       | 0.6772       | 0.6279      |
-| RMSE     | 0.8262       |0.8739        | 0.8163      |
+| Model    | SVD-Surprise | KNN-Surprise | Neural network |
+| ---------| -----------  | -----------  | -------------- |
+| MAE      | 0.6384       | 0.6772       | 0.6279         |
+| RMSE     | 0.8262       | 0.8739       | 0.8163         |
 
-- Cummulative Hit Ratio: Tỉ lệ _hit_ của mô hình gợi ý, đánh giá chất lượng của mô hình KNN (k=20). Thông số này được tính ở file `notebook\KNN_hitrate.ipynb` sử dụng phương pháp Leave-one-out.
+- Cummulative Hit Ratio: _hit_ rate of the recommender model, assessing the quality of the KNN model (k=20). This parameter is calculated in the file `notebook\KNN_hitrate.ipynb` using the Leave-one-out method.
 
-| Mô hình | Split 1  | Split 2  |  Mean    |
+| Model   | Split 1  | Split 2  | Mean     |
 | ------- | -------- | -------- | -------- | 
 | CHR     | 0.024315 | 0.023758 | 0.24     |
-
-# 5. Thành viên
-- Trần Quang Duy
-- Tôn Thất Hữu Trí 
-- Đoàn Nguyễn Nam 
-- Phan Thị Cẩm Tú
-- Nguyễn Quang lực
